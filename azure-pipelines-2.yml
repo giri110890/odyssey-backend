@@ -1,0 +1,84 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- '*'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+    npm test
+  displayName: 'NPM INSTALL and TEST'
+  
+- script: |
+   echo "----------------------------------------------------------------------"
+   buildNumber=$(Build.BuildNumber)  
+   echo "##vso[task.setvariable variable=build.number]$buildNumber"
+   echo "----------------------------------------------------------------------"
+  displayName: 'Setting build.number [$(build.number)]'
+- script: |
+   echo "----------------------------------------------------------------------"
+   sourceFolder=$(Build.SourcesDirectory)/odyssey-backend
+   echo "Modify config.js to specify dev-2 config."
+   sudo chmod +w ./config/config.js
+   sudo sed -i 's/dev-2/dev-2/g' ./config/config.js
+   zipFileName=$(Build.ArtifactStagingDirectory)/odyssey-backend.zip
+   # cd $sourceFolder
+   zip -r $zipFileName . x ".git*"
+   cd $(Build.SourcesDirectory)
+   echo "----------------------------------------------------------------------"
+  displayName: 'Creating [$(Build.ArtifactStagingDirectory)/odyssey-backend.zip]'
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/odyssey-backend.zip'
+    artifactName: 'odyssey-backend'  
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'dev-backend'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    contents: '**/odyssey-backend.zip'
+    targetFolder: '/home/azureuser/Landing-Zone/odyssey-backend/$(build.number)'
+    cleanTargetFolder: true
+    readyTimeout: '20000'
+    failOnEmptySource: true
+    
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'dev-backend'
+    runOptions: 'inline'
+    inline: |
+      timestamp=$(date +'%Y-%m-%d-%S-%M-%H')
+      echo "----------------------------------------------------------------------"
+      #sudo rm /tmp/odyssey-backend.zip
+      echo "Stoping [back-end.service]"
+      sudo service back-end stop
+      echo "Deleting the content of [/var/www/html/backend]"
+      sudo rm -rf /var/www/html/backend/.git*
+      sudo rm -rf /var/www/html/backend/*
+      sudo cp "/home/azureuser/Landing-Zone/odyssey-backend/$(build.number)/odyssey-backend.zip" /tmp
+      sudo chown -R  backend:backend /tmp/odyssey-backend.zip
+      sudo -u backend unzip -o "/tmp/odyssey-backend.zip" -d /var/www/html/backend
+      echo "Starting [back-end.service]"
+      sudo service back-end start
+      echo "--------------------------------------------------------------------------"
+      echo "Check status of [back-end.service]"
+      sudo service back-end status
+      echo "--------------------------------------------------------------------------"
+      echo "build.number [$(build.number)]"
+      sudo sh -c 'echo $(build.number) > /var/www/html/backend/build_number'
+      sudo rm /tmp/odyssey-backend.zip
+      sudo rm -rf /home/azureuser/Landing-Zone/odyssey-backend/*
+    readyTimeout: '20000'
+  displayName: 'Deploy Odyssey [Back-End] Service'

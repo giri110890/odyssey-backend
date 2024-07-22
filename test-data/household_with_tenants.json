@@ -1,0 +1,17 @@
+{
+    "household_id": "aaabb332244",
+    "tenants": [
+      {
+        "tenant_id": "adfa1134",
+        "name": "Alice",
+        "email": "alice@example.com",
+        "phone": "123-456-7890"
+      },
+      {
+        "tenant_id": "asdfa000123",
+        "name": "Bob",
+        "email": "bob@example.com",
+        "phone": "987-654-3210"
+      }
+    ]
+}

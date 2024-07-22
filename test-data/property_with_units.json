@@ -1,0 +1,27 @@
+{
+    "id": "3b3f5a16-6d1d-4e1f-bb53-9179c8c2a1a7",
+    "propertyName": "123 Main St",
+    "address": {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "CA",
+      "postalCode": "12345"
+    },
+    "units": [
+      {
+        "unit_id": "abas1123433",
+        "unitNumber": "A101",
+        "size": "1000 sq ft",
+        "rent": 1200,
+        "household_id": "abcdef1234"
+      },
+      {
+        "unit_id": "abas11116433",
+        "unitNumber": "B202",
+        "size": "850 sq ft",
+        "rent": 1100,
+        "household_id": "aaabbb3333"
+      }
+    ]
+  }
+  

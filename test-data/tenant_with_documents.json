@@ -1,0 +1,18 @@
+{
+    "household_id": "aaabb332244",
+    "tenant_id": "adfa1134",
+    "documents": [
+      {
+        "document_id": "adf1566a1134",
+        "name": "Rental Application",
+        "type": "RentalApplication",
+        "location": "partial-url"
+      },
+      {
+        "document_id": "bdaf1566a1134",
+        "name": "Rental Application",
+        "type": "RentalApplication",
+        "location": "partial-url"
+      }
+    ]
+}

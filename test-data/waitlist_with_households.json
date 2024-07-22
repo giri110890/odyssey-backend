@@ -1,0 +1,13 @@
+{
+  "waitlist_id": "abcdef1234",
+  "id": "abdd33227877",
+  "unit_id": "abdd3322",
+  "households": [
+    {
+      "household_id": "aaabb332244"
+    },
+    {
+      "household_id": "xyzdd55112"
+    }
+  ]
+}
