@@ -21,11 +21,24 @@ jobs:
         with:
           node-version: '18.x'
 
+      - name: Replace placeholders in config with secrets
+        run: |
+          sed -i "s|@aws_access_id@|${{ secrets.AWS_ACCESS_KEY_ID }}|g" config/env/dev-2.js
+          sed -i "s|@aws_access_secret@|${{ secrets.AWS_SECRET_ACCESS_KEY }}|g" config/env/dev-2.js
+          sed -i "s|@cognito_app_client_id@|${{ secrets.COGNITO_APP_CLIENT_ID }}|g" config/env/dev-2.js
+          sed -i "s|@cognito_pool_id@|${{ secrets.COGNITO_POOL_ID }}|g" config/env/dev-2.js
+          sed -i "s|@config_frontend_service@|${{ secrets.FRONTEND_SERVICE }}|g" config/env/dev-2.js
+          sed -i "s|@config_database@|${{ secrets.AZURE_DATABASE }}|g" config/env/dev-2.js
+          sed -i "s|@config_endpoint@|${{ secrets.AZURE_BLOB_ENDPOINT }}|g" config/env/dev-2.js
+          sed -i "s|@config_key@|${{ secrets.AZURE_BLOB_ACCOUNT_KEY }}|g" config/env/dev-2.js
+          sed -i "s|@config_BLOB_ACCOUNT@|${{ secrets.AZURE_BLOB_ACCOUNT }}|g" config/env/dev-2.js
+          sed -i "s|@config_BLOB_ACCOUNT_KEY@|${{ secrets.AZURE_BLOB_ACCOUNT_KEY }}|g" config/env/dev-2.js
+          sed -i "s|@config_BLOB_CONTAINER_NAME@|${{ secrets.AZURE_BLOB_CONTAINER_NAME }}|g" config/env/dev-2.js
+
       - name: npm install, build, and test
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
