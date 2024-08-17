@@ -1,11 +1,11 @@
 function env_config( config ) {
 
 
-config.endpoint = '@config.endpoint@'
-config.key = '@config.key@'
-config.BLOB_ACCOUNT='@config.BLOB_ACCOUNT@'
-config.BLOB_ACCOUNT_KEY='@config.BLOB_ACCOUNT_KEY@'
-config.BLOB_CONTAINER_NAME='@config.BLOB_CONTAINER_NAME@'
+config.endpoint = '@config_endpoint@'
+config.key = '@config_key@'
+config.BLOB_ACCOUNT='@config_BLOB_ACCOUNT@'
+config.BLOB_ACCOUNT_KEY='@config_BLOB_ACCOUNT_KEY@'
+config.BLOB_CONTAINER_NAME='@config_BLOB_CONTAINER_NAME@'
 config.database = {
   id: 'dev-orc-data'
 }
@@ -31,7 +31,7 @@ config.aws.cognito.host = {
 
 }
 
-config.odyssey_host = "https://front-end.eastus.cloudapp.azure.com",
+config.odyssey_host = '@config_frontend_service@',
 
 // TODO: Obviously, this needs to be removed and stored in a secure vault.
 config.permissions = {
