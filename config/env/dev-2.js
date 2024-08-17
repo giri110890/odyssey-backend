@@ -7,7 +7,7 @@ config.BLOB_ACCOUNT='@config_BLOB_ACCOUNT@'
 config.BLOB_ACCOUNT_KEY='@config_BLOB_ACCOUNT_KEY@'
 config.BLOB_CONTAINER_NAME='@config_BLOB_CONTAINER_NAME@'
 config.database = {
-  id: 'dev-orc-data'
+  id: '@config_database@'
 }
 
 config.aws = {
