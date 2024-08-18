@@ -68,7 +68,7 @@ jobs:
         with:
           name: app
       - name: Unzip artifact for deployment
-        run: unzip release1.zip
+        run: unzip -o release1.zip
         
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
