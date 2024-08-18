@@ -10,7 +10,7 @@ const deriveConfig = require('./config.common.derived');
 
 var config = {};
 
-config.PORT = 8080;
+config.PORT = process.env.PORT || 8080;
 
 config.container = {
     id: 'properties',
