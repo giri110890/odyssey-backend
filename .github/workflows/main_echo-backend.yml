@@ -69,4 +69,5 @@ jobs:
           app-name: Echo-backend
           slot-name: 'production'
           package: .
+          clean: true
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_537123AD5A7F46DEBDC4026911B063F0 }}
