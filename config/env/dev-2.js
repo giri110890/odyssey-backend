@@ -20,7 +20,7 @@ config.aws = {
 }
 config.aws.cognito = {
 
-	cognito_app_client_id: '@cognito_app_client_id@,
+	cognito_app_client_id: '@cognito_app_client_id@',
 	cognito_pool_id: '@cognito_pool_id@',
 	testuser_username: '@testuser_username@',
     testuser_password: '@testuser_password@',
