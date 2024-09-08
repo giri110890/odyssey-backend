@@ -1,38 +1,39 @@
 function env_config( config ) {
 
 
-config.endpoint = '@config_endpoint@'
-config.key = '@config_key@'
-config.BLOB_ACCOUNT='@config_BLOB_ACCOUNT@'
-config.BLOB_ACCOUNT_KEY='@config_BLOB_ACCOUNT_KEY@'
-config.BLOB_CONTAINER_NAME='@config_BLOB_CONTAINER_NAME@'
+config.endpoint = 'https://orc-solution-staging-db.documents.azure.com:443/'
+config.key = 'Z66pF9kWr8yySDCHx3eTQvtVM6CuAhjt5iUvuKDfSrZ4oVADOGvWR6zanKaZHtXfHpNKA28wSCiGACDbOxDBGw=='
+config.BLOB_ACCOUNT='devproscanblobstorage'
+config.BLOB_ACCOUNT_KEY='iFgv6jl05t/YxgSx/qA7ySszJEtD+UQvzjX+u5wB5cEv1FE6ZebLFbv2xxwWmVgHhZdlHXLVkJjU+AStd+fFfw=='
+config.BLOB_CONTAINER_NAME='devproscanblobstoragecontainer'
 config.database = {
-  id: '@config_database@'
+  id: 'staging-orc-data'
 }
 
 config.aws = {
 	options: {
 		region: "us-east-1",
-		accessKeyId: "@aws_access_id@",
-		secretAccessKey: "@aws_access_secret@",
+		accessKeyId: "AKIAVTHVJA2E32KSQ6N2",
+		secretAccessKey: "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",
 		apiVersion: "latest"
 	},
 }
 config.aws.cognito = {
-
-	cognito_app_client_id: '@cognito_app_client_id@',
-	cognito_pool_id: '@cognito_pool_id@',
-	testuser_username: '@testuser_username@',
-    testuser_password: '@testuser_password@',
+	cognito_app_client_id: '6p61f0nt696an3ornp7j6it7of',
+	cognito_pool_id: 'us-east-1_l3Fj1sZne',
+	testuser_username: 'naik899@gmail.com',
+    testuser_password: 'Test@123',
 }
+
 config.aws.cognito.host = {
 	cognito_host: 'https://odyssey-dev-2.auth.us-east-1.amazoncognito.com',
-	cognito_host_keys: `https://cognito-idp.${config.aws.options.region}.amazonaws.com/${config.aws.cognito.cognito_pool_id}/.well-known/jwks.json`,
+	cognito_host_keys: `https://cognito-idp.us-east-1.amazonaws.com/us-east-1_l3Fj1sZne/.well-known/jwks.json`,
 
 }
 
-config.odyssey_host = '@config_frontend_service@',
+// config.odyssey_host = "https://front-end.eastus.cloudapp.azure.com",
 
+config.odyssey_host = "http://localhost:3000",
 // TODO: Obviously, this needs to be removed and stored in a secure vault.
 config.permissions = {
 	aud: 'odyssey-dev-2-clients',
